@@ -197,3 +197,12 @@ resource "aws_key_pair" "hashicat" {
   key_name   = local.private_key_filename
   public_key = tls_private_key.hashicat.public_key_openssh
 }
+
+data "tfe_outputs" "clumsy_bird_dev" {
+    organization = "example-org-9dbbd6"
+    workspace = "devops-aws-myapp-dev"
+}
+
+output "clumsy_bird_dev_url" {
+  value     = nonsensitive("What goes better with a HashiCat?  A Clumsy Bird of course - ${data.tfe_outputs.clumsy_bird_dev.values.clumsy-bird-url}")
+}
